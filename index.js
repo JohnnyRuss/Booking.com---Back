@@ -28,7 +28,7 @@ mongoose
     });
   });
 
-module.exports = SERVER;
+// module.exports = SERVER;
 
 // mongoose.connection.on("disconnected");
 // mongoose.connection.on("connected");
