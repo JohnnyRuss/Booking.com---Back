@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const { createServer } = require("http");
 const getAppConnection = require("./src/lib/getAppConnection");
 
-
 process.on("uncaughtException", (err) => {
   console.log("uncaughtException ! process is exited", err);
   process.exit(1);
@@ -28,6 +27,8 @@ mongoose
       SERVER.close(() => process.exit(1));
     });
   });
+
+module.exports = SERVER;
 
 // mongoose.connection.on("disconnected");
 // mongoose.connection.on("connected");
