@@ -1,12 +1,10 @@
-import { config } from "dotenv";
 import JWT from "jsonwebtoken";
 import { promisify } from "util";
 
-const {
-  parsed: { JWT_SECRET, JWT_REFRESH_SECRET, NODE_MODE },
-} = config();
-
 export default async function verifyToken(token, refresher = false) {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
+
   const validator = promisify(JWT.verify);
 
   const user = await validator(

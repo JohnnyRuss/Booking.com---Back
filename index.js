@@ -1,6 +1,9 @@
 import App from "./app.js";
 import mongoose from "mongoose";
 import { createServer } from "http";
+import { config } from "dotenv";
+
+config();
 
 import { getAppConnection } from "./src/lib/index.js";
 
