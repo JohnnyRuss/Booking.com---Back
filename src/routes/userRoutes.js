@@ -1,16 +1,16 @@
-import express from "express";
+const express = require("express");
 
-import {
+const {
   updateUser,
   deleteUser,
   getUser,
   getUsers,
-} from "../controllers/userController.js";
+} = require("../controllers/userController.js");
 
-import {
+const {
   checkAuth,
   restriction,
-} from "../controllers/authenticationController.js";
+} = require("../controllers/authenticationController.js");
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router
   .delete(checkAuth, restriction("admin"), deleteUser)
   .get(checkAuth, restriction("admin"), getUser);
 
-export default router;
+module.exports = router;

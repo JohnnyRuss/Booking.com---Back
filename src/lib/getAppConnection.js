@@ -1,4 +1,4 @@
-export default function getAppConnection() {
+function getAppConnection() {
   const NODE_MODE = process.env.NODE_MODE;
   const PORT = process.env.PORT;
   const CONNECTION_DEV = process.env.DB_APP_CONNECTION_DEV;
@@ -13,3 +13,5 @@ export default function getAppConnection() {
 
   return config;
 }
+
+module.exports = getAppConnection;

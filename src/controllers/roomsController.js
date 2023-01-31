@@ -1,8 +1,9 @@
-import { AppError, asyncWrapper } from "../utils/index.js";
-import Hotel from "../models/Hotel.js";
-import Room from "../models/Room.js";
+const asyncWrapper = require("../utils/asyncWrapper");
+const AppError = require("../utils/AppError");
+const Hotel = require("../models/Hotel.js");
+const Room = require("../models/Room.js");
 
-export const createRoom = asyncWrapper(async function (req, res, next) {
+exports.createRoom = asyncWrapper(async function (req, res, next) {
   const { hotelId } = req.params;
   const body = req.body;
 
@@ -22,7 +23,7 @@ export const createRoom = asyncWrapper(async function (req, res, next) {
   res.status(201).json(newRoom);
 });
 
-export const insertNewRoom = asyncWrapper(async function (req, res, next) {
+exports.insertNewRoom = asyncWrapper(async function (req, res, next) {
   const { roomId } = req.params;
   const body = req.body;
 
@@ -36,7 +37,7 @@ export const insertNewRoom = asyncWrapper(async function (req, res, next) {
   res.status(201).json(updatedRooms);
 });
 
-export const updateRoom = asyncWrapper(async function (req, res, next) {
+exports.updateRoom = asyncWrapper(async function (req, res, next) {
   const body = req.body;
   const { roomId } = req.params;
 
@@ -51,7 +52,7 @@ export const updateRoom = asyncWrapper(async function (req, res, next) {
   res.status(201).json(updatedRoom);
 });
 
-export const deleteRoom = asyncWrapper(async function (req, res, next) {
+exports.deleteRoom = asyncWrapper(async function (req, res, next) {
   const { hotelId, roomId } = req.params;
 
   const deletedRoom = await Room.findByIdAndDelete(roomId);
@@ -63,7 +64,7 @@ export const deleteRoom = asyncWrapper(async function (req, res, next) {
   res.status(204).json({ deleted: true });
 });
 
-export const getRoom = asyncWrapper(async function (req, res, next) {
+exports.getRoom = asyncWrapper(async function (req, res, next) {
   const { roomId } = req.params;
 
   const room = await Room.findById(roomId);
@@ -73,7 +74,7 @@ export const getRoom = asyncWrapper(async function (req, res, next) {
   res.status(200).json(room);
 });
 
-export const getHotelRooms = asyncWrapper(async function (req, res, next) {
+exports.getHotelRooms = asyncWrapper(async function (req, res, next) {
   const { hotelId } = req.params;
 
   const rooms = await Room.find({ hotel: hotelId });
@@ -81,7 +82,7 @@ export const getHotelRooms = asyncWrapper(async function (req, res, next) {
   res.status(200).json(rooms);
 });
 
-export const reserveRoom = asyncWrapper(async function (req, res, next) {
+exports.reserveRoom = asyncWrapper(async function (req, res, next) {
   const { roomId } = req.params;
   const { num } = req.query;
   const body = req.body;

@@ -1,8 +1,12 @@
-import { AppError, asyncWrapper } from "../utils/index.js";
-import User from "../models/User.js";
-import { asignToken, verifyToken } from "../lib/index.js";
+const asyncWrapper = require("../utils/asyncWrapper");
+const AppError = require("../utils/AppError");
 
-export const register = asyncWrapper(async function (req, res, next) {
+const verifyToken = require("../lib/verifyToken");
+const asignToken = require("../lib/asignToken");
+
+const User = require("../models/User.js");
+
+exports.register = asyncWrapper(async function (req, res, next) {
   const { userName, email, password } = req.body;
 
   const newUser = new User({
@@ -21,7 +25,7 @@ export const register = asyncWrapper(async function (req, res, next) {
   res.status(201).json({ user: newUser, accessToken });
 });
 
-export const login = asyncWrapper(async function (req, res, next) {
+exports.login = asyncWrapper(async function (req, res, next) {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
@@ -39,13 +43,13 @@ export const login = asyncWrapper(async function (req, res, next) {
   res.status(200).json({ user, accessToken });
 });
 
-export const logoutUser = asyncWrapper(async function (req, res, next) {
+exports.logoutUser = asyncWrapper(async function (req, res, next) {
   res.cookie("authorization", "");
   res.clearCookie("authorization");
   res.end();
 });
 
-export const checkAuth = asyncWrapper(async function (req, res, next) {
+exports.checkAuth = asyncWrapper(async function (req, res, next) {
   const { authorization } = req.headers;
 
   const token = authorization?.split("Bearer ")[1];
@@ -62,7 +66,7 @@ export const checkAuth = asyncWrapper(async function (req, res, next) {
   next();
 });
 
-export const restriction = (...roles) =>
+exports.restriction = (...roles) =>
   asyncWrapper(async function (req, res, next) {
     const currUser = req.user;
     const userRole = currUser.role;
@@ -73,7 +77,7 @@ export const restriction = (...roles) =>
     next();
   });
 
-export const refresh = asyncWrapper(async function (req, res, next) {
+exports.refresh = asyncWrapper(async function (req, res, next) {
   const { authorization } = req.cookies;
 
   const token = authorization?.split("Bearer ")[1];

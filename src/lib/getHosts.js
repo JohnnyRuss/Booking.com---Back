@@ -1,1 +1,1 @@
-export default function getHosts() {}
+function getHosts() {}

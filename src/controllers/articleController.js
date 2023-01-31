@@ -1,14 +1,15 @@
-import { AppError, asyncWrapper } from "../utils/index.js";
-import Hotel from "../models/Hotel.js";
-import Article from "../models/Article.js";
+const asyncWrapper = require("../utils/asyncWrapper");
+const AppError = require("../utils/AppError");
+const Hotel = require("../models/Hotel.js");
+const Article = require("../models/Article.js");
 
-export const getArticles = asyncWrapper(async function (req, res, next) {
+exports.getArticles = asyncWrapper(async function (req, res, next) {
   const articles = await Article.find().select("title thumbnail intro");
 
   res.status(200).json(articles);
 });
 
-export const getArticle = asyncWrapper(async function (req, res, next) {
+exports.getArticle = asyncWrapper(async function (req, res, next) {
   const { articleId } = req.params;
 
   const article = await Article.findById(articleId);

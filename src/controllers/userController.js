@@ -1,7 +1,8 @@
-import { AppError, asyncWrapper } from "../utils/index.js";
-import User from "../models/User.js";
+const asyncWrapper = require("../utils/asyncWrapper");
+const AppError = require("../utils/AppError");
+const User = require("../models/User.js");
 
-export const updateUser = asyncWrapper(async function (req, res, next) {
+exports.updateUser = asyncWrapper(async function (req, res, next) {
   const body = req.body;
   const { userId } = req.params;
 
@@ -16,7 +17,7 @@ export const updateUser = asyncWrapper(async function (req, res, next) {
   res.status(201).json(updatedUser);
 });
 
-export const deleteUser = asyncWrapper(async function (req, res, next) {
+exports.deleteUser = asyncWrapper(async function (req, res, next) {
   const { userId } = req.params;
 
   const deletedUser = await User.findByIdAndDelete(userId);
@@ -26,7 +27,7 @@ export const deleteUser = asyncWrapper(async function (req, res, next) {
   res.status(204).json({ deleted: true });
 });
 
-export const getUser = asyncWrapper(async function (req, res, next) {
+exports.getUser = asyncWrapper(async function (req, res, next) {
   const { userId } = req.params;
 
   const user = await User.findById(userId);
@@ -36,7 +37,7 @@ export const getUser = asyncWrapper(async function (req, res, next) {
   res.status(200).json(user);
 });
 
-export const getUsers = asyncWrapper(async function (req, res, next) {
+exports.getUsers = asyncWrapper(async function (req, res, next) {
   const users = await User.find();
 
   res.status(200).json(users);

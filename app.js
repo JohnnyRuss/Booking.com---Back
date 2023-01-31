@@ -1,19 +1,20 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import morgan from "morgan";
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 
-import { fileURLToPath } from "url";
-import path from "path";
+// const { fileURLToPath } = require("url");
+const path = require("path");
 
-import { getOrigins } from "./src/lib/index.js";
-import { AppError, ErrorController } from "./src/utils/index.js";
+const getOrigins = require("./src/lib/getOrigins");
+const AppError = require("./src/utils/AppError");
+const ErrorController = require("./src/utils/ErrorController");
 
-import authenticationRoutes from "./src/routes/authenticationRoutes.js";
-import userRoutes from "./src/routes/userRoutes.js";
-import hotelRoutes from "./src/routes/hotelRoutes.js";
-import roomsRoutes from "./src/routes/roomsRoutes.js";
-import articleRoutes from "./src/routes/articleRoutes.js";
+const authenticationRoutes = require("./src/routes/authenticationRoutes.js");
+const userRoutes = require("./src/routes/userRoutes.js");
+const hotelRoutes = require("./src/routes/hotelRoutes.js");
+const roomsRoutes = require("./src/routes/roomsRoutes.js");
+const articleRoutes = require("./src/routes/articleRoutes.js");
 
 const App = express();
 
@@ -33,14 +34,17 @@ App.use(
 App.use(express.json());
 App.use(express.urlencoded({ extended: false }));
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 App.use(express.static(path.join(__dirname, "public/assets")));
 
 App.use(cookieParser());
 
 App.use(morgan("dev"));
 
+App.use("/", (req, res, next) => {
+  res.status(200).json("Wellcome to Booking.com REST API");
+});
 App.use("/api/v1/authentication", authenticationRoutes);
 App.use("/api/v1/user", userRoutes);
 App.use("/api/v1/hotels", hotelRoutes);
@@ -53,4 +57,4 @@ App.use("*", (req, res, next) => {
 
 App.use(ErrorController);
 
-export default App;
+module.exports = App;

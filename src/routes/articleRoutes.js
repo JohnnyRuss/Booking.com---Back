@@ -1,6 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import { getArticle, getArticles } from "../controllers/articleController.js";
+const {
+  getArticle,
+  getArticles,
+} = require("../controllers/articleController.js");
 
 const router = express.Router();
 
@@ -8,4 +11,4 @@ router.route("/:articleId").get(getArticle);
 
 router.route("/").get(getArticles);
 
-export default router;
+module.exports = router;

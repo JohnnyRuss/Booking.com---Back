@@ -1,4 +1,4 @@
-export default async function errorController(err, req, res, next) {
+async function errorController(err, req, res, next) {
   const NODE_MODE = process.env.NODE_MODE;
 
   const error = {
@@ -11,3 +11,5 @@ export default async function errorController(err, req, res, next) {
 
   res.status(error.statusCode).json(error);
 }
+
+module.exports = errorController;

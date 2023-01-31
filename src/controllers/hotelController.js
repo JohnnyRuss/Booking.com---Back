@@ -1,11 +1,12 @@
-import { AppError, asyncWrapper } from "../utils/index.js";
-import Hotel from "../models/Hotel.js";
-import Room from "../models/Room.js";
-// import data from "../../data.json" assert { type: "json" };
+const asyncWrapper = require("../utils/asyncWrapper");
+const AppError = require("../utils/AppError");
+const Hotel = require("../models/Hotel.js");
+const Room = require("../models/Room.js");
+// const data =require( "../../data.json" assert { type: "json" });
 
-import { API_Features } from "../utils/index.js";
+const API_Features = require("../utils/API_Features");
 
-export const createHotel = asyncWrapper(async function (req, res, next) {
+exports.createHotel = asyncWrapper(async function (req, res, next) {
   const body = req.body;
 
   const newHotel = await Hotel.create(body);
@@ -13,7 +14,7 @@ export const createHotel = asyncWrapper(async function (req, res, next) {
   res.status(201).json(newHotel);
 });
 
-export const updateHotel = asyncWrapper(async function (req, res, next) {
+exports.updateHotel = asyncWrapper(async function (req, res, next) {
   const body = req.body;
   const { hotelId } = req.params;
 
@@ -28,7 +29,7 @@ export const updateHotel = asyncWrapper(async function (req, res, next) {
   res.status(201).json(updatedHotel);
 });
 
-export const deleteHotel = asyncWrapper(async function (req, res, next) {
+exports.deleteHotel = asyncWrapper(async function (req, res, next) {
   const { hotelId } = req.params;
 
   const deletedHotel = await Hotel.findByIdAndDelete(hotelId);
@@ -40,7 +41,7 @@ export const deleteHotel = asyncWrapper(async function (req, res, next) {
   res.status(204).json({ deleted: true });
 });
 
-export const getHotel = asyncWrapper(async function (req, res, next) {
+exports.getHotel = asyncWrapper(async function (req, res, next) {
   const { hotelId } = req.params;
 
   const hotel = await Hotel.findById(hotelId);
@@ -50,7 +51,7 @@ export const getHotel = asyncWrapper(async function (req, res, next) {
   res.status(200).json(hotel);
 });
 
-export const getHotels = asyncWrapper(async function (req, res, next) {
+exports.getHotels = asyncWrapper(async function (req, res, next) {
   const { doc } = new API_Features(Hotel.find(), req.query).filter();
 
   const hotels = await doc
@@ -72,11 +73,7 @@ export const getHotels = asyncWrapper(async function (req, res, next) {
   res.status(200).json(hotels);
 });
 
-export const hotelsByPropertyType = asyncWrapper(async function (
-  req,
-  res,
-  next
-) {
+exports.hotelsByPropertyType = asyncWrapper(async function (req, res, next) {
   const byTypes = await Hotel.aggregate([
     { $match: {} },
 
@@ -104,7 +101,7 @@ export const hotelsByPropertyType = asyncWrapper(async function (
   res.status(200).json(byTypes);
 });
 
-export const hotelsByCity = asyncWrapper(async function (req, res, next) {
+exports.hotelsByCity = asyncWrapper(async function (req, res, next) {
   const byCity = await Hotel.aggregate([
     { $match: {} },
 
@@ -134,7 +131,7 @@ export const hotelsByCity = asyncWrapper(async function (req, res, next) {
   res.status(200).json(byCity);
 });
 
-export const exploreCountry = asyncWrapper(async function (req, res, next) {
+exports.exploreCountry = asyncWrapper(async function (req, res, next) {
   const { country } = req.query;
 
   const countryToExplore = await Hotel.aggregate([

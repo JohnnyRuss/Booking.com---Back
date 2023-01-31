@@ -1,6 +1,6 @@
-import express from "express";
+const express = require("express");
 
-import {
+const {
   createRoom,
   updateRoom,
   deleteRoom,
@@ -8,12 +8,12 @@ import {
   getHotelRooms,
   reserveRoom,
   insertNewRoom,
-} from "../controllers/roomsController.js";
+} = require("../controllers/roomsController.js");
 
-import {
+const {
   checkAuth,
   restriction,
-} from "../controllers/authenticationController.js";
+} = require("../controllers/authenticationController.js");
 
 const router = express.Router();
 
@@ -38,4 +38,4 @@ router
   .route("/:hotelId/:roomId")
   .delete(checkAuth, restriction("admin"), deleteRoom);
 
-export default router;
+module.exports = router;

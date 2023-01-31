@@ -1,11 +1,12 @@
-import App from "./app.js";
-import mongoose from "mongoose";
-import { createServer } from "http";
-import { config } from "dotenv";
+const { config } = require("dotenv");
 
 config();
 
-import { getAppConnection } from "./src/lib/index.js";
+const App = require("./app.js");
+const mongoose = require("mongoose");
+const { createServer } = require("http");
+const getAppConnection = require("./src/lib/getAppConnection");
+
 
 process.on("uncaughtException", (err) => {
   console.log("uncaughtException ! process is exited", err);

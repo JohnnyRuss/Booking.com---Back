@@ -1,11 +1,11 @@
-import express from "express";
+const express = require("express");
 
-import {
+const {
   register,
   login,
   logoutUser,
   refresh,
-} from "../controllers/authenticationController.js";
+} = require("../controllers/authenticationController.js");
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.route("/logout").post(logoutUser);
 
 router.route("/refresh").post(refresh);
 
-export default router;
+module.exports = router;
