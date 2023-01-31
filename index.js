@@ -14,19 +14,21 @@ const SERVER = createServer(App);
 
 const { port, link } = getAppConnection();
 
-mongoose.set("strictQuery", false);
-mongoose
-  .connect(link)
-  .then(() => {
-    console.log(`DB Is Connected Successfully`);
-    SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
-  })
-  .catch((err) => {
-    process.on("unhandledRejection", (err) => {
-      console.log("Unhandled Rejection, server is closed >", err.message);
-      SERVER.close(() => process.exit(1));
+SERVER.listen(port, () => {
+  console.log(`App Listens On Port ${port}`);
+  mongoose.set("strictQuery", false);
+  mongoose
+    .connect(link)
+    .then(() => {
+      console.log(`DB Is Connected Successfully`);
+    })
+    .catch((err) => {
+      process.on("unhandledRejection", (err) => {
+        console.log("Unhandled Rejection, server is closed >", err.message);
+        SERVER.close(() => process.exit(1));
+      });
     });
-  });
+});
 
 // module.exports = SERVER;
 
