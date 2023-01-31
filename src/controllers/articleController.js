@@ -1,6 +1,5 @@
 const asyncWrapper = require("../utils/asyncWrapper");
 const AppError = require("../utils/AppError");
-const Hotel = require("../models/Hotel.js");
 const Article = require("../models/Article.js");
 
 exports.getArticles = asyncWrapper(async function (req, res, next) {
