@@ -15,9 +15,21 @@ const userRoutes = require("./src/routes/userRoutes.js");
 const hotelRoutes = require("./src/routes/hotelRoutes.js");
 const roomsRoutes = require("./src/routes/roomsRoutes.js");
 const articleRoutes = require("./src/routes/articleRoutes.js");
-const Hotel = require("./src/models/Hotel");
 
 const App = express();
+
+App.use(function (req, res, next) {
+  res.header("Access-Control-Allow-credentials", true);
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Origin, Authorization"
+  );
+
+  if (req.method === "OPTIONS") res.sendStatus(200);
+  else next();
+});
 
 App.use(
   cors({
@@ -48,11 +60,6 @@ App.use("/api/v1/user", userRoutes);
 App.use("/api/v1/hotels", hotelRoutes);
 App.use("/api/v1/rooms", roomsRoutes);
 App.use("/api/v1/inspiration", articleRoutes);
-
-App.use("/wellcome", async (req, res, next) => {
-  const d = await Hotel.find();
-  res.status(200).json(d);
-});
 
 App.use("*", (req, res, next) => {
   next(new AppError(404, `can't find ${req.originalUrl} on this server`));

@@ -1,4 +1,4 @@
-require("dotenv").config({path:"./.env"});
+require("dotenv").config({ path: "./.env" });
 
 const App = require("./app.js");
 const mongoose = require("mongoose");
@@ -19,7 +19,6 @@ mongoose
   .connect(link)
   .then(() => {
     console.log(`DB Is Connected Successfully`);
-    SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
   })
   .catch((err) => {
     process.on("unhandledRejection", (err) => {
@@ -28,7 +27,8 @@ mongoose
     });
   });
 
-module.exports = SERVER;
+SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
+// module.exports = SERVER;
 
 // mongoose.connection.on("disconnected");
 // mongoose.connection.on("connected");
