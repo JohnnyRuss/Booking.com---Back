@@ -15,6 +15,7 @@ const userRoutes = require("./src/routes/userRoutes.js");
 const hotelRoutes = require("./src/routes/hotelRoutes.js");
 const roomsRoutes = require("./src/routes/roomsRoutes.js");
 const articleRoutes = require("./src/routes/articleRoutes.js");
+const Hotel = require("./src/models/Hotel");
 
 const App = express();
 
@@ -48,8 +49,9 @@ App.use("/api/v1/hotels", hotelRoutes);
 App.use("/api/v1/rooms", roomsRoutes);
 App.use("/api/v1/inspiration", articleRoutes);
 
-App.use("/wellcome", (req, res, next) => {
-  res.status(200).json("Wellcome to Booking.com REST API");
+App.use("/wellcome", async (req, res, next) => {
+  const d = await Hotel.find();
+  res.status(200).json(d);
 });
 
 App.use("*", (req, res, next) => {
