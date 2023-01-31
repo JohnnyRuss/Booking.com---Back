@@ -13,24 +13,22 @@ process.on("uncaughtException", (err) => {
 const SERVER = createServer(App);
 
 const { port, link } = getAppConnection();
-console.log({ port, link });
-SERVER.listen(port, () => {
-  console.log(`App Listens On Port ${port}`);
-  mongoose.set("strictQuery", false);
-  mongoose
-    .connect(link)
-    .then(() => {
-      console.log(`DB Is Connected Successfully`);
-    })
-    .catch((err) => {
-      process.on("unhandledRejection", (err) => {
-        console.log("Unhandled Rejection, server is closed >", err.message);
-        SERVER.close(() => process.exit(1));
-      });
-    });
-});
 
-// module.exports = SERVER;
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(link)
+  .then(() => {
+    console.log(`DB Is Connected Successfully`);
+    SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
+  })
+  .catch((err) => {
+    process.on("unhandledRejection", (err) => {
+      console.log("Unhandled Rejection, server is closed >", err.message);
+      SERVER.close(() => process.exit(1));
+    });
+  });
+
+module.exports = SERVER;
 
 // mongoose.connection.on("disconnected");
 // mongoose.connection.on("connected");
