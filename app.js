@@ -42,14 +42,15 @@ App.use(cookieParser());
 
 App.use(morgan("dev"));
 
-App.use("/", (req, res, next) => {
-  res.status(200).json("Wellcome to Booking.com REST API");
-});
 App.use("/api/v1/authentication", authenticationRoutes);
 App.use("/api/v1/user", userRoutes);
 App.use("/api/v1/hotels", hotelRoutes);
 App.use("/api/v1/rooms", roomsRoutes);
 App.use("/api/v1/inspiration", articleRoutes);
+
+App.use("/", (req, res, next) => {
+  res.status(200).json("Wellcome to Booking.com REST API");
+});
 
 App.use("*", (req, res, next) => {
   next(new AppError(404, `can't find ${req.originalUrl} on this server`));
