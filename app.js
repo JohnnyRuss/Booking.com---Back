@@ -48,7 +48,7 @@ App.use("/api/v1/hotels", hotelRoutes);
 App.use("/api/v1/rooms", roomsRoutes);
 App.use("/api/v1/inspiration", articleRoutes);
 
-App.use("/", (req, res, next) => {
+App.use("/wellcome", (req, res, next) => {
   res.status(200).json("Wellcome to Booking.com REST API");
 });
 
