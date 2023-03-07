@@ -2,7 +2,7 @@ async function errorController(err, req, res, next) {
   const NODE_MODE = process.env.NODE_MODE;
 
   const error = {
-    messahe: err.message || "server error",
+    message: err.message || "server error",
     status: err.status || "error",
     statusCode: err.statusCode || 500,
   };

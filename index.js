@@ -18,6 +18,7 @@ mongoose.set("strictQuery", false);
 mongoose
   .connect(link)
   .then(() => {
+    SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
     console.log(`DB Is Connected Successfully`);
   })
   .catch((err) => {
@@ -27,7 +28,6 @@ mongoose
     });
   });
 
-SERVER.listen(port, () => console.log(`App Listens On Port ${port}`));
 // module.exports = SERVER;
 
 // mongoose.connection.on("disconnected");
