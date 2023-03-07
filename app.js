@@ -55,9 +55,6 @@ App.use(cookieParser());
 
 App.use(morgan("dev"));
 
-App.use("/", async function (req, res, next) {
-  res.status(200).json("wellcome to booking.com");
-});
 App.use("/api/v1/authentication", authenticationRoutes);
 App.use("/api/v1/user", userRoutes);
 App.use("/api/v1/hotels", hotelRoutes);
