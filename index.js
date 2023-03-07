@@ -13,7 +13,7 @@ process.on("uncaughtException", (err) => {
 const SERVER = createServer(App);
 
 const { port, link } = getAppConnection();
-console.log({ port, link });
+
 mongoose.set("strictQuery", false);
 mongoose
   .connect(link)

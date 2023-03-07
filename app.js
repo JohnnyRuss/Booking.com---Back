@@ -31,8 +31,6 @@ App.use(function (req, res, next) {
   else next();
 });
 
-console.log(getOrigins());
-
 App.use(
   cors({
     credentials: true,
