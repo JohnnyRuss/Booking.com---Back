@@ -31,6 +31,8 @@ App.use(function (req, res, next) {
   else next();
 });
 
+console.log(getOrigins());
+
 App.use(
   cors({
     credentials: true,
@@ -60,6 +62,10 @@ App.use("/api/v1/user", userRoutes);
 App.use("/api/v1/hotels", hotelRoutes);
 App.use("/api/v1/rooms", roomsRoutes);
 App.use("/api/v1/inspiration", articleRoutes);
+
+App.get("/", (req, res) => {
+  res.status(200).json("wellcome to Booker REST API");
+});
 
 App.use("*", (req, res, next) => {
   next(new AppError(404, `can't find ${req.originalUrl} on this server`));
