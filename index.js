@@ -27,8 +27,3 @@ mongoose
       SERVER.close(() => process.exit(1));
     });
   });
-
-// module.exports = SERVER;
-
-// mongoose.connection.on("disconnected");
-// mongoose.connection.on("connected");
